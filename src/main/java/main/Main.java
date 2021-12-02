@@ -3,6 +3,7 @@ package main;
 import toys.Car;
 import toys.Helicopter;
 import toys.SerialNumberGenerator;
+import toys.ToyBussiness;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,27 +20,27 @@ public class Main {
         ArrayList<Car> cars = new ArrayList<>();
         ArrayList<Helicopter> helicopters = new ArrayList<>();
 
+        ToyBussiness toyBussiness = new ToyBussiness();
+
         String command;
         while(!"exit".equals(command = scanner.nextLine())){
 
-
             switch (command) {
                 case "car" -> {
-                    Car c = new Car(numberGenerator.next(), "Car");
-                    c.pack();
-                    c.label();
+                    Car c =  toyBussiness.createCar();
                     cars.add(c);
                     System.out.println("Built cars: " + cars.stream().map(x -> x.getSerialNumber().toString()).
                             collect(Collectors.joining(", ")));
                 }
+
                 case "helicopter" -> {
-                    Helicopter h = new Helicopter(numberGenerator.next(), "Car");
-                    h.pack();
-                    h.label();
+                    Helicopter h = toyBussiness.createHelicopter();
                     helicopters.add(h);
+
                     System.out.println("Built helicopters: " + helicopters.stream().map(x -> x.getSerialNumber().toString()).
                             collect(Collectors.joining(", ")));
                 }
+
                 default -> System.out.println("Unknown command!");
             }
         }
