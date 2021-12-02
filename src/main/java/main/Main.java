@@ -1,6 +1,7 @@
 package main;
 
 import toys.Car;
+import toys.Helicopter;
 import toys.SerialNumberGenerator;
 
 import java.io.IOException;
@@ -16,15 +17,33 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Car> cars = new ArrayList<>();
+        ArrayList<Helicopter> helicopters = new ArrayList<>();
 
         String command;
         while(!"exit".equals(command = scanner.nextLine())){
-            Car tmp = new Car(numberGenerator.next());
-            tmp.pack(); tmp.label();
 
-            cars.add(tmp);
-            System.out.println("Built cars: " + cars.stream().map(c -> c.getSerialNumber().toString()).collect(Collectors.joining(", ")));
+
+            switch (command) {
+                case "car" -> {
+                    Car c = new Car(numberGenerator.next(), "Car");
+                    c.pack();
+                    c.label();
+                    cars.add(c);
+                    System.out.println("Built cars: " + cars.stream().map(x -> x.getSerialNumber().toString()).
+                            collect(Collectors.joining(", ")));
+                }
+                case "helicopter" -> {
+                    Helicopter h = new Helicopter(numberGenerator.next(), "Car");
+                    h.pack();
+                    h.label();
+                    helicopters.add(h);
+                    System.out.println("Built cars: " + helicopters.stream().map(x -> x.getSerialNumber().toString()).
+                            collect(Collectors.joining(", ")));
+                }
+                default -> System.out.println("Unknown command!");
+            }
         }
 
+        System.out.println("Exiting...");
     }
 }
